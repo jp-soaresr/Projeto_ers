@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\EstoqueController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login;
+use App\Http\Controllers\Usuario;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +23,9 @@ Route::get('/', function () {
 Route::get('/login', [Login::class, 'showLoginForm'])->name('login');
 Route::post('/login', [Login::class, 'login']);
 Route::post('/logout', [Login::class, 'logout'])->name('logout');
+
+
+
+Route::get('/exerc1', [Usuario::class, 'Exerc1']);
+
+Route::resource('/estoque', EstoqueController::class);
