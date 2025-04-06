@@ -5,57 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sua Página</title>
+    <!-- Link do Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-        /* Estilos globais */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Estilos para o cabeçalho */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background-color: #ffffff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        /* Título da página */
-        .task-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333333;
-        }
-
-        /* Grupo de botões */
-        .select-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        /* Estilização dos botões */
-        .select-group button {
-            padding: 10px 15px;
-            font-size: 14px;
+        /* Estilo extra para a navbar */
+        .nav-link {
+            color: #333;
             font-weight: 500;
-            color: #333333;
-            background-color: #f0f0f0;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+            padding: 10px 15px;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        .select-group button:hover {
-            background-color: #007bff;
-            color: #ffffff;
+        .nav-link:hover {
+            color: #007bff;
             transform: scale(1.05);
         }
 
-        /* Ícone de usuário */
+        .divider {
+            width: 1px;
+            background-color: #ccc;
+            margin: 0 10px;
+            height: 30px;
+            align-self: center;
+        }
+
         .user-profile {
             width: 40px;
             height: 40px;
@@ -78,15 +52,15 @@
 </head>
 
 <body>
-    <header>
-        <!-- Botões de navegação -->
-        <div class="select-group">
-            <button>Categoria</button>
-            <button>Estoque</button>
-            <button>Clientes</button>
-        </div>
+    <header class="d-flex justify-content-between align-items-center px-4 py-3 shadow-sm bg-white border-bottom">
+        <nav class="d-flex align-items-center">
+            <a class="nav-link" href="#">Categoria</a>
+            <div class="divider"></div>
+            <a class="nav-link" href="#">Estoque</a>
+            <div class="divider"></div>
+            <a class="nav-link" href="#">Clientes</a>
+        </nav>
 
-        <!-- Ícone de usuário redondo no canto direito -->
         <div class="user-profile">U</div>
     </header>
 </body>

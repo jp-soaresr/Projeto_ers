@@ -19,7 +19,7 @@ class EstoqueController extends Controller
      */
     public function create()
     {
-        //
+        return view("Criando produto");
     }
 
     /**
@@ -27,7 +27,7 @@ class EstoqueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all()); // Isso vai mostrar todos os dados enviados pelo modal
     }
 
     /**

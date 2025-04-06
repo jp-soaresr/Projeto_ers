@@ -26,6 +26,4 @@ Route::post('/logout', [Login::class, 'logout'])->name('logout');
 
 
 
-Route::get('/exerc1', [Usuario::class, 'Exerc1']);
-
 Route::resource('/estoque', EstoqueController::class);
