@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Produto;
 
 class EstoqueController extends Controller
 {
@@ -11,7 +12,8 @@ class EstoqueController extends Controller
      */
     public function index()
     {
-        return view("estoque.listar");
+        $produtos = Produto::all();
+        return view("estoque.listar", compact('produtos'));
     }
 
     /**
@@ -27,7 +29,15 @@ class EstoqueController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all()); // Isso vai mostrar todos os dados enviados pelo modal
+        $request->validate([
+            'produto' => 'required|string|max:255',
+            'estoque' => 'required|integer|min:0',
+            'valor'   => 'required|numeric|min:0',
+        ]);
+
+        Produto::create($request->only(['produto', 'estoque', 'valor']));
+
+        return redirect()->route('estoque.index')->with('success', 'Produto cadastrado com sucesso!');
     }
 
     /**
@@ -49,16 +59,19 @@ class EstoqueController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $produto = Produto::findOrFail($id);
+        $produto->update($request->all());
+        return redirect()->route('estoque.index')->with('success', 'Produto atualizado com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        Produto::destroy($id);
+        return redirect()->route('estoque.index')->with('success', 'Produto excluído com sucesso!');
     }
 }

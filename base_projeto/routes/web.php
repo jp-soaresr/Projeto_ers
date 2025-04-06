@@ -26,4 +26,4 @@ Route::post('/logout', [Login::class, 'logout'])->name('logout');
 
 
 
-Route::resource('/estoque', EstoqueController::class);
+Route::resource('estoque', EstoqueController::class);

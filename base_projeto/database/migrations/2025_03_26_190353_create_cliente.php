@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('usuarios', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome');
+        Schema::create('clientes', function (Blueprint $table) {
+            $table->id(); //PRIMARY KEY AUTO_INCREMENT
+            $table->string('nome', 100); //VARCHAR(100)
             $table->string('email')->unique();
-            $table->string('senha');
-            $table->string('telefone');
-            $table->string('nivel');
-            $table->rememberToken();
+            $table->string('tefone')->nullable();
+            $table->string('endereco');
+            $table->string('cpf_cnpj');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('usuarios');
+        Schema::dropIfExists('clientes');
     }
 };

@@ -1,5 +1,6 @@
+document.addEventListener('DOMContentLoaded', function () {
 
-// pegando elementos do usuario para preenchera a modal de edição
+    // pegando elementos do usuario para preenchera a modal de edição
 
     document.querySelectorAll('.btn-editar').forEach(botao => {
         botao.addEventListener('click', () => {
@@ -16,7 +17,7 @@
 
 
 
-// chamndo o botao de excluir
+    // chamndo o botao de excluir
 
 
     document.querySelectorAll('.btn-excluir').forEach(botao => {
@@ -26,4 +27,28 @@
             modal.show();
         });
     });
+
+
+
+    // limpando campos novo produto 
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const btnNovoProduto = document.getElementById('novoProdutoModal');
+
+        if (btnNovoProduto) {
+            btnNovoProduto.addEventListener('click', () => {
+                const form = document.querySelector('#novoProdutoModalLabel'); // ID do formulário
+                if (form) {
+                    form.reset(); // Limpa todos os campos
+                    // form.action = '/estoque'; // Garante que vai pro "store"
+                    // document.getElementById('formMethod').value = 'POST'; // Define como criação
+                }
+            });
+        }
+    });
+
+
+    console.log("JS carregado!");
+});
+
 

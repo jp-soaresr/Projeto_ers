@@ -69,9 +69,7 @@
 </div>
 
 <div class="mb-3 text-start">
-    <!-- Botão que abre o modal -->
     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#novoProdutoModal">Novo Produto</button>
-
 </div>
 
 <div class="table-responsive">
@@ -85,27 +83,38 @@
             </tr>
         </thead>
         <tbody>
+            @forelse ($produtos as $produto)
             <tr>
-                <td>1</td>
-                <td>Produto A</td>
-                <td>10</td>
+                <td>{{ $produto->id }}</td>
+                <td>{{ $produto->produto }}</td>
+                <td>{{ $produto->estoque }}</td>
                 <td class="text-center">
                     <div class="d-flex justify-content-center gap-2">
-                        <button class="btn btn-editar">
+                        <button class="btn btn-editar"
+                            data-id="{{ $produto->id }}"
+                            data-nome="{{ $produto->produto }}"
+                            data-descricao="{{ $produto->descricao }}"
+                            data-categoria="{{ $produto->categoria }}">
                             <i class="fas fa-edit"></i> Editar
                         </button>
-                        <button class="btn btn-excluir">
+                        <button class="btn btn-excluir"
+                            data-id="{{ $produto->id }}">
                             <i class="fas fa-trash-alt"></i> Excluir
                         </button>
                     </div>
                 </td>
             </tr>
-            <!-- outros produtos... -->
+            @empty
+            <tr>
+                <td colspan="4" class="text-center">Nenhum produto cadastrado.</td>
+            </tr>
+            @endforelse
         </tbody>
     </table>
 </div>
+<script src='../../js/estoque.js'></script> 
 
-  
+
 @include('estoque.confirmarExcluir')
 @include('estoque.novoProduto')
 @endsection

@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('usuarios', function (Blueprint $table) {
+        Schema::create('servico', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_categoria');
             $table->string('nome');
-            $table->string('email')->unique();
-            $table->string('senha');
-            $table->string('telefone');
-            $table->string('nivel');
-            $table->rememberToken();
+            $table->float('valor_total', 8, 2);
+            $table->float('valor_mao_de_obra', 8, 2);
+            $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('usuarios');
+        Schema::dropIfExists('servico');
     }
 };
