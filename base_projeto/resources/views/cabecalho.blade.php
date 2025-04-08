@@ -58,7 +58,7 @@
             <div class="divider"></div>
             <a class="nav-link" href="estoque">Estoque</a>
             <div class="divider"></div>
-            <a class="nav-link" href="#">Clientes</a>
+            <a class="nav-link" href="clientes">Clientes</a>
         </nav>
 
         <div class="user-profile">U</div>
