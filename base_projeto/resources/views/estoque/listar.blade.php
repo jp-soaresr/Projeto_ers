@@ -25,8 +25,8 @@
     }
 
     .btn-novo:hover {
-        background-color:rgb(34, 119, 72);
-        border-color:rgb(34, 119, 72);
+        background-color: rgb(34, 119, 72);
+        border-color: rgb(34, 119, 72);
     }
 
     .btn-editar {
@@ -84,6 +84,7 @@
                 <th>Quantidade</th>
                 <th>Valor</th>
                 <th>Categoria</th>
+                <th>Forma de Pagamento</th>
                 <th class="text-center">Ações</th>
             </tr>
         </thead>
@@ -95,6 +96,7 @@
                 <td>{{ $produto->estoque }}</td>
                 <td>R$ {{ number_format($produto->valor, 2, ',', '.') }}</td>
                 <td>{{ $produto->categoria->categoria ?? '—' }}</td>
+                <td>{{ $produto->formaPagamento->forma_pagamento ?? '—' }}</td>
                 <td class="text-center">
                     <div class="d-flex justify-content-center gap-2">
                         <button
@@ -103,7 +105,7 @@
                             data-nome="{{ $produto->produto }}"
                             data-estoque="{{ $produto->estoque }}"
                             data-valor="{{ $produto->valor }}"
-                            data-categoria="{{ $produto->categoria_id }}">
+                            data-categoria="{{ $produto->categoria->categoria ?? '' }}">
                             <i class="fas fa-edit"></i> Editar
                         </button>
                         <button
@@ -116,10 +118,11 @@
             </tr>
             @empty
             <tr>
-                <td colspan="6" class="text-center">Nenhum produto cadastrado.</td>
+                <td colspan="7" class="text-center">Nenhum produto cadastrado.</td>
             </tr>
             @endforelse
         </tbody>
+
     </table>
 </div>
 
@@ -130,15 +133,18 @@
             btn.addEventListener('click', () => {
                 const modal = new bootstrap.Modal(document.getElementById('editarProdutoModal'));
                 const form = document.getElementById('formEditarProduto');
+
                 form.action = `/estoque/${btn.dataset.id}`;
                 document.getElementById('editarNome').value = btn.dataset.nome;
                 document.getElementById('editarQuantidade').value = btn.dataset.estoque;
-                document.getElementById('editarCategoria').value = btn.dataset.categoria;
                 document.getElementById('editarValor').value = btn.dataset.valor;
                 document.getElementById('editarCategoria').value = btn.dataset.categoria;
+                document.getElementById('editarFormaPagamento').value = btn.dataset.formaPagamento;
+
                 modal.show();
             });
         });
+
 
         // Excluir
         document.querySelectorAll('.btn-excluir').forEach(btn => {

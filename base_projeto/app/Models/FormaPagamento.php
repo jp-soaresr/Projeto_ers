@@ -9,5 +9,5 @@ class FormaPagamento extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['forma_pagamento', 'tarifa_de_pagamento'];
+    protected $fillable = ['forma_pagamento'];
 }

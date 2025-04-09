@@ -7,12 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produto extends Model
 {
-    protected $table = 'produtos';           // garante o nome correto
-    protected $primaryKey = 'id';            // chave primária padrão
-    protected $fillable = ['produto','estoque','valor','categoria_id'];
+    use HasFactory;
 
-    public function categoria()
+    protected $table = 'produtos';
+    protected $primaryKey = 'id';  
+    protected $fillable = ['produto','estoque', 'valor', 'id_categoria', 'id_forma_pagamento'];
+
+    public function categoria() 
     {
-        return $this->belongsTo(Categoria::class);
+        return $this->belongsTo(Categoria::class, 'id_categoria');
+    }
+
+    public function formaPagamento() 
+    {
+        return $this->belongsTo(FormaPagamento::class, 'id_forma_pagamento');
     }
 }

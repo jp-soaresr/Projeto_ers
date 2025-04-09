@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\Categoria;
+use App\Models\FormaPagamento;
 
 class EstoqueController extends Controller
 {
@@ -13,9 +14,10 @@ class EstoqueController extends Controller
      */
     public function index()
     {
-        $produtos = Produto::with('categoria')->get();
+        $produtos = Produto::with(['categoria', 'formaPagamento'])->get();
         $categorias = Categoria::all();
-        return view('estoque.listar', compact('produtos', 'categorias'));
+        $forma_pagamentos = FormaPagamento::all();
+        return view('estoque.listar', compact('produtos', 'categorias', 'forma_pagamentos'));
     }
 
     /**
@@ -35,13 +37,14 @@ class EstoqueController extends Controller
             'produto'      => 'required|string|max:255',
             'estoque'      => 'required|integer|min:0',
             'valor'        => 'required|numeric|min:0',
-            'categoria_id' => 'nullable|exists:categorias,id',
+            'id_categoria' => 'nullable|exists:categorias,id',
+            'id_forma_pagamento' => 'nullable|exists:forma_pagamentos,id',
         ]);
-    
+
         Produto::create($data);
-    
+
         return redirect()->route('estoque.index')
-                         ->with('success', 'Produto cadastrado com sucesso!');
+            ->with('success', 'Produto cadastrado com sucesso!');
     }
 
     /**
@@ -69,13 +72,14 @@ class EstoqueController extends Controller
             'produto'      => 'required|string|max:255',
             'estoque'      => 'required|integer|min:0',
             'valor'        => 'required|numeric|min:0',
-            'categoria_id' => 'nullable|exists:categorias,id',
+            'id_categoria' => 'nullable|exists:categorias,id',
+            'id_forma_pagamento' => 'nullable|exists:forma_pagamentos,id',
         ]);
-    
+
         Produto::findOrFail($id)->update($data);
-    
+
         return redirect()->route('estoque.index')
-                         ->with('success', 'Produto atualizado com sucesso!');
+            ->with('success', 'Produto atualizado com sucesso!');
     }
 
     /**

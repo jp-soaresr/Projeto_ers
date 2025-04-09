@@ -59,6 +59,8 @@
             <a class="nav-link" href="estoque">Estoque</a>
             <div class="divider"></div>
             <a class="nav-link" href="#">Clientes</a>
+            <div class="divider"></div>
+            <a class="nav-link" href="forma_pagamentos">Forma de pagamento</a>
         </nav>
 
         <div class="user-profile">U</div>

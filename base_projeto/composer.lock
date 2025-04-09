@@ -8114,16 +8114,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1"
     },
-<<<<<<< HEAD
     "platform-dev": [],
-=======
-    "platform-dev": {},
->>>>>>> view
     "plugin-api-version": "2.6.0"
 }

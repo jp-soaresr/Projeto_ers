@@ -1,4 +1,4 @@
-<!-- resources/views/categorias/novoProduto.blade.php -->
+<!-- resources/views/estoque/novoProduto.blade.php -->
 <div class="modal fade" id="novoProdutoModal" tabindex="-1" aria-labelledby="novoProdutoModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <form method="POST" action="{{ route('estoque.store') }}">
@@ -19,18 +19,25 @@
             <input type="number" name="estoque" class="form-control" required min="0">
           </div>
 
-
           <div class="mb-3">
             <label for="categoria_id" class="form-label">Categoria</label>
-            <select name="categoria_id" class="form-select" required>
+            <select name="id_categoria" class="form-select" required>
               <option value="" disabled selected>Selecione uma categoria</option>
               @foreach ($categorias as $categoria)
-              <option value="{{ $categoria->id }}">{{ $categoria->categoria }}</option>
+                <option value="{{ $categoria->id }}">{{ $categoria->categoria }}</option>
               @endforeach
             </select>
           </div>
 
-
+          <div class="mb-3">
+            <label for="id_forma_pagamento" class="form-label">Forma de Pagamento</label>
+            <select name="id_forma_pagamento" class="form-select">
+              <option value="" disabled selected>Selecione uma forma de pagamento</option>
+              @foreach ($forma_pagamentos as $forma)
+                <option value="{{ $forma->id }}">{{ $forma->forma_pagamento }}</option>
+              @endforeach
+            </select>
+          </div>
 
           <div class="mb-3">
             <label for="valor" class="form-label">Valor</label>

@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produto_do_servico', function (Blueprint $table) {
+        Schema::create('produtos_da_compra', function (Blueprint $table) {
+            $table->unsignedBigInteger('id_cliente');
             $table->unsignedBigInteger('id_produto');
-            $table->unsignedBigInteger('id_servico');
+            $table->foreign('id_cliente')->references('id')->on('clientes')->onDelete('restrict');
             $table->foreign('id_produto')->references('id')->on('produtos')->onDelete('restrict');
-            $table->foreign('id_servico')->references('id')->on('servico')->onDelete('restrict');
-            $table->integer('quantidade');
-            $table->float('valor_total', 8, 2);
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produto_do_servico');
+        //
     }
 };

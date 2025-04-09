@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id(); //PRIMARY KEY AUTO_INCREMENT
             $table->string('nome', 100); //VARCHAR(100)
             $table->string('email')->unique();
-            $table->string('tefone')->nullable();
+            $table->string('telefone')->nullable();
             $table->string('endereco');
             $table->string('cpf_cnpj');
             $table->timestamps();

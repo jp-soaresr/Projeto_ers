@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Usuario;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\FormaPagamentoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,8 @@ Route::get('/login', [Login::class, 'showLoginForm'])->name('login');
 Route::post('/login', [Login::class, 'login']);
 Route::post('/logout', [Login::class, 'logout'])->name('logout');
 
-
-
 Route::resource('estoque', EstoqueController::class);
 
 Route::resource('categorias', CategoriaController::class);
+
+Route::resource('forma_pagamentos', FormaPagamentoController::class);

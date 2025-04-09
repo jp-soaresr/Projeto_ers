@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('produto');
             $table->integer('estoque');
             $table->float('valor', 8, 2);
+            $table->unsignedBigInteger('id_categoria');
+            $table->unsignedBigInteger('id_forma_pagamento');
+            $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('restrict');
+            $table->foreign('id_forma_pagamento')->references('id')->on('forma_pagamentos')->onDelete('restrict');
             $table->timestamps();
         });
     }

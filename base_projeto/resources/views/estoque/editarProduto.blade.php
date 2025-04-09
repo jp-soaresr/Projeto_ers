@@ -19,12 +19,26 @@
             <input type="number" class="form-control" id="editarQuantidade" name="estoque" required>
           </div>
           <div class="mb-3">
-            <label for="editarDescricao" class="form-label">Descrição</label>
-            <textarea class="form-control" id="editarDescricao" name="descricao"></textarea>
+            <label for="editarValor" class="form-label">Valor</label>
+            <input type="number" class="form-control" id="editarValor" name="valor" step="0.01" min="0" required>
           </div>
           <div class="mb-3">
             <label for="editarCategoria" class="form-label">Categoria</label>
-            <input type="text" class="form-control" id="editarCategoria" name="categoria">
+            <select id="editarCategoria" name="id_categoria" class="form-select">
+              <option value="" disabled>Selecione uma categoria</option>
+              @foreach ($categorias as $categoria)
+                <option value="{{ $categoria->id }}">{{ $categoria->categoria }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="editarFormaPagamento" class="form-label">Forma de Pagamento</label>
+            <select id="editarFormaPagamento" name="id_forma_pagamento" class="form-select">
+              <option value="" disabled>Selecione uma forma de pagamento</option>
+              @foreach ($forma_pagamentos as $forma)
+                <option value="{{ $forma->id }}">{{ $forma->forma_pagamento }}</option>
+              @endforeach
+            </select>
           </div>
         </div>
         <div class="modal-footer">
