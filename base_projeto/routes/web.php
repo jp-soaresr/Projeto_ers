@@ -7,6 +7,8 @@ use App\Http\Controllers\Usuario;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\FormaPagamentoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,17 +22,25 @@ use App\Http\Controllers\ClienteController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
-Route::get('/login', [Login::class, 'showLoginForm'])->name('login');
-Route::post('/login', [Login::class, 'login']);
-Route::post('/logout', [Login::class, 'logout'])->name('logout');
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
 
-Route::resource('estoque', EstoqueController::class);
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::resource('estoque', EstoqueController::class)->names([
+    'index' => 'estoque.listar',
+]);
 
 Route::resource('categorias', CategoriaController::class);
 
 Route::resource('clientes', ClienteController::class);
 
 Route::resource('forma_pagamentos', FormaPagamentoController::class);
+
+Route::resource('usuarios', UsuarioController::class);

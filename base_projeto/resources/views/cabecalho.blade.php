@@ -61,9 +61,23 @@
             <a class="nav-link" href="clientes">Clientes</a>
             <div class="divider"></div>
             <a class="nav-link" href="forma_pagamentos">Forma de pagamento</a>
+            <div class="divider"></div>
+            <a class="nav-link" href="usuarios">Usuários</a>
         </nav>
 
-        <div class="user-profile">U</div>
+        <div class="dropdown">
+            <div class="user-profile dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                U
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="dropdown-item text-danger">Sair</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
     </header>
 </body>
 

@@ -43,7 +43,7 @@ class EstoqueController extends Controller
 
         Produto::create($data);
 
-        return redirect()->route('estoque.index')
+        return redirect()->route('estoque.listar')
             ->with('success', 'Produto cadastrado com sucesso!');
     }
 
@@ -78,7 +78,7 @@ class EstoqueController extends Controller
 
         Produto::findOrFail($id)->update($data);
 
-        return redirect()->route('estoque.index')
+        return redirect()->route('estoque.listar')
             ->with('success', 'Produto atualizado com sucesso!');
     }
 
@@ -88,6 +88,6 @@ class EstoqueController extends Controller
     public function destroy($id)
     {
         Produto::destroy($id);
-        return redirect()->route('estoque.index')->with('success', 'Produto excluído com sucesso!');
+        return redirect()->route('estoque.listar')->with('success', 'Produto excluído com sucesso!');
     }
 }
