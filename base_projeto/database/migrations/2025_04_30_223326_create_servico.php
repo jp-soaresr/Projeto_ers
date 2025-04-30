@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produtos_da_compra', function (Blueprint $table) {
+        Schema::create('servicos', function (Blueprint $table) {
+            $table->id();
+            $table->string('nome');
+            $table->float('valor');
+            $table->date('data_inicio');
+            $table->date('data_fim');
             $table->unsignedBigInteger('id_cliente');
-            $table->unsignedBigInteger('id_produto');
+            $table->unsignedBigInteger('id_forma_pagamento');
             $table->foreign('id_cliente')->references('id')->on('clientes')->onDelete('restrict');
-            $table->foreign('id_produto')->references('id')->on('produtos')->onDelete('restrict');
+            $table->foreign('id_forma_pagamento')->references('id')->on('forma_pagamentos')->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('servicos');
     }
 };
