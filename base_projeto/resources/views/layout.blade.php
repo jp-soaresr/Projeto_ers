@@ -8,7 +8,7 @@
   </head>
   <body>
     <!-- Fazendo uma marcação utilizando o blade -->
-    @include('cabecalho') <!-- Incluir o cabecalho -->
+    @include('navbarHome') <!-- Incluir o cabecalho -->
     <div class="container my-4">
         @yield('conteudo') <!-- Seção conteudo -->
     </div>

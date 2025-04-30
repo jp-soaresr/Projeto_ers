@@ -14,7 +14,7 @@ class EstoqueController extends Controller
      */
     public function index()
     {
-        $produtos = Produto::with(['categoria', 'formaPagamento'])->get();
+        $produtos = Produto::with(['categoria', 'formaPagamento'])->where('user_id', Auth::user()->id)->get();
         $categorias = Categoria::all();
         $forma_pagamentos = FormaPagamento::all();
         return view('estoque.listar', compact('produtos', 'categorias', 'forma_pagamentos'));
@@ -40,6 +40,8 @@ class EstoqueController extends Controller
             'id_categoria' => 'nullable|exists:categorias,id',
             'id_forma_pagamento' => 'nullable|exists:forma_pagamentos,id',
         ]);
+
+        $data['user_id'] = Auth::user()->id;
 
         Produto::create($data);
 

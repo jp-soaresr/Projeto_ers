@@ -20,6 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_forma_pagamento');
             $table->foreign('id_categoria')->references('id')->on('categorias')->onDelete('restrict');
             $table->foreign('id_forma_pagamento')->references('id')->on('forma_pagamentos')->onDelete('restrict');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user')->references('id')->on('user')->onDelete('restrict');
             $table->timestamps();
         });
     }
