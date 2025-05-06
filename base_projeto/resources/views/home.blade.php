@@ -63,23 +63,11 @@
     }
   </style>
 </head>
-@section('conteudo')
+@extends('layoutHome')
+
+
+@section('conteudoHome')
 <body>
-  <!-- Navbar -->
-  <header class="d-flex justify-content-between align-items-center px-4 py-3 shadow-sm bg-white border-bottom">
-    <div class="d-flex align-items-center">
-      <div class="user-menu-container me-3" id="menuContainer">
-        <div class="user-profile" id="userCircle">U</div>
-        <div class="user-menu" id="menuBox">
-          <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit">Sair</button>
-          </form>
-        </div>
-      </div>
-      <a class="nav-link fw-semibold" href="home">Home</a>
-    </div>
-  </header>
 
   <!-- Cards principais -->
   <div class="container mt-5">

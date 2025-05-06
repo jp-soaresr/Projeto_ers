@@ -9,6 +9,7 @@ use App\Http\Controllers\FormaPagamentoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,5 @@ Route::resource('clientes', ClienteController::class);
 Route::resource('forma_pagamentos', FormaPagamentoController::class);
 
 Route::resource('usuarios', UsuarioController::class);
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
