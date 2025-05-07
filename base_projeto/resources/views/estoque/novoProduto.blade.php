@@ -30,16 +30,6 @@
           </div>
 
           <div class="mb-3">
-            <label for="id_forma_pagamento" class="form-label">Forma de Pagamento</label>
-            <select name="id_forma_pagamento" class="form-select">
-              <option value="" disabled selected>Selecione uma forma de pagamento</option>
-              @foreach ($forma_pagamentos as $forma)
-                <option value="{{ $forma->id }}">{{ $forma->forma_pagamento }}</option>
-              @endforeach
-            </select>
-          </div>
-
-          <div class="mb-3">
             <label for="valor" class="form-label">Valor</label>
             <input type="number" name="valor" class="form-control" required step="0.01" min="0">
           </div>

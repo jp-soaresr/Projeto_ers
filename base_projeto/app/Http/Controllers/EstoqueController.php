@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produto;
 use App\Models\Categoria;
-use App\Models\FormaPagamento;
-
 class EstoqueController extends Controller
 {
     /**
@@ -16,8 +14,7 @@ class EstoqueController extends Controller
     {
         $produtos = Produto::with(['categoria', 'formaPagamento'])->get();
         $categorias = Categoria::all();
-        $forma_pagamentos = FormaPagamento::all();
-        return view('estoque.listar', compact('produtos', 'categorias', 'forma_pagamentos'));
+        return view('estoque.listar', compact('produtos', 'categorias'));
     }
 
     /**
@@ -38,7 +35,6 @@ class EstoqueController extends Controller
             'estoque'      => 'required|integer|min:0',
             'valor'        => 'required|numeric|min:0',
             'id_categoria' => 'nullable|exists:categorias,id',
-            'id_forma_pagamento' => 'nullable|exists:forma_pagamentos,id',
         ]);
 
         Produto::create($data);
@@ -73,7 +69,6 @@ class EstoqueController extends Controller
             'estoque'      => 'required|integer|min:0',
             'valor'        => 'required|numeric|min:0',
             'id_categoria' => 'nullable|exists:categorias,id',
-            'id_forma_pagamento' => 'nullable|exists:forma_pagamentos,id',
         ]);
 
         Produto::findOrFail($id)->update($data);

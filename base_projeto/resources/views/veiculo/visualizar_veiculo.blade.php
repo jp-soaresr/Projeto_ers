@@ -65,12 +65,12 @@
 </style>
 
 <div class="mb-4">
-    <h1 class="text-center">Produtos</h1>
+    <h1 class="text-center">Veículo</h1>
 </div>
 
 <div class="mb-3 text-start">
-    <button class="btn btn-novo" data-bs-toggle="modal" data-bs-target="#novoProdutoModal">
-        <i class="fas fa-plus"></i> Novo Produto
+    <button class="btn btn-novo" data-bs-toggle="modal" data-bs-target="#novoVeiculoModal">
+        <i class="fas fa-plus"></i> Novo Veículo
     </button>
 
 </div>
@@ -80,34 +80,35 @@
         <thead style="background-color: var(--verde-principal); color: white;">
             <tr>
                 <th>ID</th>
-                <th>Nome do Item</th>
-                <th>Quantidade</th>
-                <th>Valor</th>
-                <th>Categoria</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Placa</th>
+                <th>Cliente</th>
                 <th class="text-center">Ações</th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($produtos as $produto)
+            @forelse ($veiculos as $veiculo)
             <tr>
-                <td>{{ $produto->id }}</td>
-                <td>{{ $produto->produto }}</td>
-                <td>{{ $produto->estoque }}</td>
-                <td>R$ {{ number_format($produto->valor, 2, ',', '.') }}</td>
-                <td>{{ $produto->categoria->categoria ?? '—' }}</td>                <td class="text-center">
+                <td>{{ $veiculo->id }}</td>
+                <td>{{ $veiculo->marca }}</td>
+                <td>{{ $veiculo->modelo }}</td>
+                <td>{{ $veiculo->placa }}</td>
+                <td>{{ $veiculo->cliente->cliente ?? '—' }}</td>
+                <td class="text-center">
                     <div class="d-flex justify-content-center gap-2">
                         <button
                             class="btn btn-editar"
-                            data-id="{{ $produto->id }}"
-                            data-nome="{{ $produto->produto }}"
-                            data-estoque="{{ $produto->estoque }}"
-                            data-valor="{{ $produto->valor }}"
-                            data-categoria="{{ $produto->categoria->categoria ?? '' }}">
+                            data-id="{{ $veiculo->id }}"
+                            data-marca="{{ $veiculo->marca }}"
+                            data-modelo="{{ $veiculo->modelo }}"
+                            data-placa="{{ $veiculo->placa }}"
+                            data-cliente="{{ $veiculo->cliente->cliente ?? '' }}">
                             <i class="fas fa-edit"></i> Editar
                         </button>
                         <button
                             class="btn btn-excluir"
-                            data-id="{{ $produto->id }}">
+                            data-id="{{ $veiculo->id }}">
                             <i class="fas fa-trash-alt"></i> Excluir
                         </button>
                     </div>
@@ -115,7 +116,7 @@
             </tr>
             @empty
             <tr>
-                <td colspan="7" class="text-center">Nenhum produto cadastrado.</td>
+                <td colspan="7" class="text-center">Nenhum veículo cadastrado.</td>
             </tr>
             @endforelse
         </tbody>
@@ -128,15 +129,14 @@
         // Editar
         document.querySelectorAll('.btn-editar').forEach(btn => {
             btn.addEventListener('click', () => {
-                const modal = new bootstrap.Modal(document.getElementById('editarProdutoModal'));
-                const form = document.getElementById('formEditarProduto');
+                const modal = new bootstrap.Modal(document.getElementById('editarVeiculoModal'));
+                const form = document.getElementById('formEditarVeiculo');
 
-                form.action = `/estoque/${btn.dataset.id}`;
-                document.getElementById('editarNome').value = btn.dataset.nome;
-                document.getElementById('editarQuantidade').value = btn.dataset.estoque;
-                document.getElementById('editarValor').value = btn.dataset.valor;
-                document.getElementById('editarCategoria').value = btn.dataset.categoria;
-
+                form.action = `/veiculo/${btn.dataset.id}`;
+                document.getElementById('editarMarca').value = btn.dataset.marca;
+                document.getElementById('editarModelo').value = btn.dataset.modelo;
+                document.getElementById('editarPlaca').value = btn.dataset.placa;
+                document.getElementById('editarCliente').value = btn.dataset.cliente;
                 modal.show();
             });
         });
@@ -146,14 +146,14 @@
         document.querySelectorAll('.btn-excluir').forEach(btn => {
             btn.addEventListener('click', () => {
                 const modal = new bootstrap.Modal(document.getElementById('modalConfirmacao'));
-                document.getElementById('formExcluir').action = `/estoque/${btn.dataset.id}`;
+                document.getElementById('formExcluir').action = `/veiculo/${btn.dataset.id}`;
                 modal.show();
             });
         });
     });
 </script>
 
-@include('estoque.confirmarExcluir')
-@include('estoque.editarProduto')
-@include('estoque.novoProduto')
+@include('veiculo.excluir_veiculo')
+@include('veiculo.editar_veiculo')
+@include('veiculo.criar_veiculo')
 @endsection

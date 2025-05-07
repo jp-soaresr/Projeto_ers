@@ -11,15 +11,10 @@ class Produto extends Model
 
     protected $table = 'produtos';
     protected $primaryKey = 'id';  
-    protected $fillable = ['produto','estoque', 'valor', 'id_categoria', 'id_forma_pagamento'];
+    protected $fillable = ['produto','estoque', 'valor', 'id_categoria'];
 
     public function categoria() 
     {
         return $this->belongsTo(Categoria::class, 'id_categoria');
-    }
-
-    public function formaPagamento() 
-    {
-        return $this->belongsTo(FormaPagamento::class, 'id_forma_pagamento');
     }
 }
