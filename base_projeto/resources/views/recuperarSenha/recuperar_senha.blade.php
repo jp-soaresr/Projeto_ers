@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Recuperar Senha</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body, html {
@@ -15,12 +15,12 @@
             justify-content: center;
             background: #f8f9fa;
         }
-        .login-container {
+        .recuperar-container {
             min-width: 350px;
             max-width: 400px;
             width: 100%;
         }
-        .btn-recuperar {
+        .btn-voltar {
             background: none;
             border: none;
             color: #0d6efd;
@@ -29,40 +29,38 @@
             font-size: 0.95rem;
             margin-top: 8px;
         }
-        .btn-recuperar:hover {
+        .btn-voltar:hover {
             color: #0a58ca;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
+    <div class="recuperar-container">
         <div class="card shadow">
-            <div class="card-header text-center bg-primary text-white">
-                <h4>Login</h4>
+            <div class="card-header bg-primary text-white text-center">
+                <h4>Recuperar Senha</h4>
             </div>
             <div class="card-body">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        {{ $errors->first() }}
-                    </div>
+                @if (session('status'))
+                    <div class="alert alert-success">{{ session('status') }}</div>
                 @endif
-                <form action="{{ route('login') }}" method="POST">
+                @if ($errors->any())
+                    <div class="alert alert-danger">{{ $errors->first() }}</div>
+                @endif
+                <form method="POST" action="{{ route('senha.enviar') }}">
                     @csrf
                     <div class="mb-3">
-                        <label for="email" class="form-label">E-mail</label>
+                        <label for="email" class="form-label">E-mail cadastrado</label>
                         <input type="email" name="email" id="email" class="form-control" required autofocus>
                     </div>
-                    <div class="mb-3">
-                        <label for="senha" class="form-label">Senha</label>
-                        <input type="password" name="senha" id="senha" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                    <button type="submit" class="btn btn-primary w-100">Enviar link de recuperação</button>
                 </form>
                 <div class="d-flex justify-content-center mt-2">
-                    <a href="{{ route('senha.solicitar') }}" class="btn-recuperar">Esqueceu a senha?</a>
+                    <a href="{{ route('login') }}" class="btn-voltar">Voltar para o login</a>
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
+

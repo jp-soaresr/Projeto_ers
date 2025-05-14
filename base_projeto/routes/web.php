@@ -10,6 +10,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ControllerRecuperarSenha;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +48,15 @@ Route::resource('forma_pagamentos', FormaPagamentoController::class);
 Route::resource('usuarios', UsuarioController::class);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+
+
+
+// Rota para solicitar recuperação de senha
+Route::get('/senha/recuperar', [ControllerRecuperarSenha::class, 'showSolicitacaoForm'])->name('senha.solicitar');
+Route::post('/senha/recuperar', [ControllerRecuperarSenha::class, 'enviarLinkRecuperacao'])->name('senha.enviar');
+
+// Rota para redefinir senha
+Route::get('/senha/redefinir/{token}', [ControllerRecuperarSenha::class, 'showRedefinirForm'])->name('senha.redefinir');
+Route::post('/senha/redefinir', [ControllerRecuperarSenha::class, 'redefinirSenha'])->name('senha.atualizar');

@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('login');
+        return view('home.login');
     }
 
     public function login(Request $request)
@@ -35,7 +35,7 @@ class LoginController extends Controller
         // Autentica manualmente o usuário
         \Illuminate\Support\Facades\Auth::login($usuario);
     
-        return redirect()->route('estoque.listar');
+        return redirect()->route('home');
     }
 
     public function logout(Request $request)
