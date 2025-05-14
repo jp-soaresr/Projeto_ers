@@ -74,7 +74,10 @@
     </div>
 
     <!-- Botão à direita -->
-    <button class="btn btn-primary">Teste</button>
+    <form action="{{ route('logout') }}" method="POST">
+      @csrf
+      <button class="btn btn-primary" type="submit">Sair</button>
+    </form>
   </header>
 
   <script>
