@@ -34,7 +34,7 @@ class UsuarioSeeder extends Seeder
         // Segundo novo usuário
         Usuario::create([
             'nome' => 'Livia Landim',
-            'email' => 'teste@gmail.com',
+            'email' => 'livialandim04@gmail.com',
             'senha' => bcrypt('panela'),
             'telefone' => '18 997208929',
             'nivel' => 'gestor',

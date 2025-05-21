@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ControllerRecuperarSenha;
+use App\Http\Controllers\ServicoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,8 @@ Route::resource('clientes', ClienteController::class);
 Route::resource('forma_pagamentos', FormaPagamentoController::class);
 
 Route::resource('usuarios', UsuarioController::class);
+
+Route::resource('servicos', ServicoController::class);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

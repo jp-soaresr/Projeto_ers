@@ -105,6 +105,10 @@
       background: linear-gradient(135deg, #2d82b7 60%,rgb(39, 58, 105) 100%) !important;
       color: #fff !important;
     }
+    .bg-aux6 {
+      background: linear-gradient(135deg,rgb(197, 58, 15) 60%,rgb(223, 149, 53) 100%) !important;
+      color: #fff !important;
+    }
 
     .card-title {
       font-size: 2rem;
@@ -173,6 +177,14 @@
           <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
             <h5 class="card-title">Serviços</h5>
             <p class="card-text">Gerencie os serviços oferecidos.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-aux6 card-link" onclick="window.location.href='veiculos'" style="cursor:pointer;">
+          <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
+            <h5 class="card-title">Veículos</h5>
+            <p class="card-text">Gerencie os dados e informações dos veículos.</p>
           </div>
         </div>
       </div>
