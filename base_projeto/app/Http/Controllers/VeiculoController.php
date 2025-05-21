@@ -10,9 +10,9 @@ class VeiculoController extends Controller
 {
     public function index()
     {
-        $veiculos = Veiculo::with(['categoria', 'formaPagamento'])->get();
+        $veiculos = Veiculo::with(['cliente'])->get();
         $clientes = Cliente::all();
-        return view('veiculos.listar', compact('veiculos', 'clientes'));
+        return view('veiculo.listar', compact('veiculos', 'clientes'));
     }
 
     public function create()
@@ -34,7 +34,7 @@ class VeiculoController extends Controller
 
         Veiculo::create($data);
 
-        return redirect()->route('veiculo.listar')
+        return redirect()->route('veiculo.index')
             ->with('success', 'Veículo cadastrado com sucesso!');
     }
 
@@ -68,7 +68,7 @@ class VeiculoController extends Controller
 
         Veiculo::findOrFail($id)->update($data);
 
-        return redirect()->route('veiculo.listar')
+        return redirect()->route('veiculo.index')
             ->with('success', 'Veículo atualizado com sucesso!');
     }
 
@@ -78,6 +78,6 @@ class VeiculoController extends Controller
     public function destroy($id)
     {
         Veiculo::destroy($id);
-        return redirect()->route('veiculo.listar')->with('success', 'Veículo excluído com sucesso!');
+        return redirect()->route('veiculo.index')->with('success', 'Veículo excluído com sucesso!');
     }
 }

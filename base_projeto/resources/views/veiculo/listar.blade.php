@@ -94,7 +94,7 @@
                 <td>{{ $veiculo->marca }}</td>
                 <td>{{ $veiculo->modelo }}</td>
                 <td>{{ $veiculo->placa }}</td>
-                <td>{{ $veiculo->cliente->cliente ?? '—' }}</td>
+                <td>{{ $veiculo->cliente->nome ?? '—' }}</td>
                 <td class="text-center">
                     <div class="d-flex justify-content-center gap-2">
                         <button
@@ -103,7 +103,7 @@
                             data-marca="{{ $veiculo->marca }}"
                             data-modelo="{{ $veiculo->modelo }}"
                             data-placa="{{ $veiculo->placa }}"
-                            data-cliente="{{ $veiculo->cliente->cliente ?? '' }}">
+                            data-cliente="{{ $veiculo->cliente->nome ?? '' }}">
                             <i class="fas fa-edit"></i> Editar
                         </button>
                         <button
@@ -153,7 +153,7 @@
     });
 </script>
 
-@include('veiculo.excluir_veiculo')
-@include('veiculo.editar_veiculo')
-@include('veiculo.criar_veiculo')
+@include('veiculo.excluir')
+@include('veiculo.editar')
+@include('veiculo.criar')
 @endsection

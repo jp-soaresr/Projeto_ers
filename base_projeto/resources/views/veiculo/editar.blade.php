@@ -16,18 +16,18 @@
           </div>
           <div class="mb-3">
             <label for="editarModelo" class="form-label">Modelo</label>
-            <input type="number" class="form-control" id="editarModelo" name="modelo" required>
+            <input type="text" class="form-control" id="editarModelo" name="modelo" required>
           </div>
           <div class="mb-3">
-            <label for="editarPlaca" class="form-label">Valor</label>
-            <input type="number" class="form-control" id="editarPlaca" name="placa" required>
+            <label for="editarPlaca" class="form-label">Placa</label>
+            <input type="text" class="form-control" id="editarPlaca" name="placa" required>
           </div>
           <div class="mb-3">
             <label for="editarCliente" class="form-label">Proprietário</label>
             <select id="editarCliente" name="id_cliente" class="form-select">
               <option value="" disabled>Selecione um cliente</option>
               @foreach ($clientes as $cliente)
-                <option value="{{ $cliente->id }}">{{ $cliente->cliente }}</option>
+                <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
               @endforeach
             </select>
           </div>

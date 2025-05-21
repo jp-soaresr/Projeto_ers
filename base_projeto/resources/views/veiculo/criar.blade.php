@@ -16,12 +16,12 @@
 
                     <div class="mb-3">
                         <label for="modelo" class="form-label">Modelo</label>
-                        <input type="number" name="modelo" class="form-control" required min="0">
+                        <input type="text" name="modelo" class="form-control" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="placa" class="form-label">Placa</label>
-                        <input type="number" name="placa" class="form-control" required min="0">
+                        <input type="text" name="placa" class="form-control" required>
                     </div>
 
                     <div class="mb-3">
@@ -29,7 +29,7 @@
                         <select name="id_cliente" class="form-select" required>
                             <option value="" disabled selected>Selecione um cliente</option>
                             @foreach ($clientes as $cliente)
-                            <option value="{{ $cliente->id }}">{{ $cliente->cliente }}</option>
+                            <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
                             @endforeach
                         </select>
                     </div>
