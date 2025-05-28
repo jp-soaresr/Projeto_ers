@@ -9,9 +9,11 @@
       <tr>
         <th>#</th>
         <th>Nome</th>
-        <th>Descrição</th>
-        <th>Preço</th>
-        <th>Ações</th>
+        <th>Cliente</th>
+        <th>Data inicial</th>
+        <th>Data final</th>
+        <th>Forma de pagamento</th>
+        <th>Valor</th>
       </tr>
     </thead>
     <tbody>
@@ -19,8 +21,11 @@
       <tr>
         <td>{{ $servico->id }}</td>
         <td>{{ $servico->nome }}</td>
-        <td>{{ $servico->descricao }}</td>
-        <td>{{ $servico->preco }}</td>
+        <td>{{ $servico->cliente->nome ?? '—' }}</td>
+        <td>{{ $servico->data_inicio }}</td>
+        <td>{{ $servico->data_fim}}</td>
+        <td>{{ $servico->forma_pagamentos->forma_pagamento }}</td>
+        <td>{{ $servico->valor }}</td>
         <td>
           <a href="{{ route('servicos.edit', $servico->id) }}" class="btn btn-warning btn-sm">Editar</a>
           <form action="{{ route('servicos.destroy', $servico->id) }}" method="POST" style="display:inline;">
