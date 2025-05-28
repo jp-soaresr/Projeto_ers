@@ -181,7 +181,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card bg-aux6 card-link" onclick="window.location.href='veiculos'" style="cursor:pointer;">
+        <div class="card bg-aux6 card-link" onclick="window.location.href='veiculo'" style="cursor:pointer;">
           <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
             <h5 class="card-title">Veículos</h5>
             <p class="card-text">Gerencie os dados e informações dos veículos.</p>
