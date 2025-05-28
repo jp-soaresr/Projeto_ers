@@ -31,15 +31,6 @@
               @endforeach
             </select>
           </div>
-          <div class="mb-3">
-            <label for="editarFormaPagamento" class="form-label">Forma de Pagamento</label>
-            <select id="editarFormaPagamento" name="id_forma_pagamento" class="form-select">
-              <option value="" disabled>Selecione uma forma de pagamento</option>
-              @foreach ($forma_pagamentos as $forma)
-                <option value="{{ $forma->id }}">{{ $forma->forma_pagamento }}</option>
-              @endforeach
-            </select>
-          </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Salvar Alterações</button>

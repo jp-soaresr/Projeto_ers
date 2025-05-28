@@ -12,6 +12,8 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ControllerRecuperarSenha;
 use App\Http\Controllers\ServicoController;
+use App\Http\Controllers\VeiculoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -63,3 +65,6 @@ Route::post('/senha/recuperar', [ControllerRecuperarSenha::class, 'enviarLinkRec
 // Rota para redefinir senha
 Route::get('/senha/redefinir/{token}', [ControllerRecuperarSenha::class, 'showRedefinirForm'])->name('senha.redefinir');
 Route::post('/senha/redefinir', [ControllerRecuperarSenha::class, 'redefinirSenha'])->name('senha.atualizar');
+
+Route::resource('veiculo', VeiculoController::class);
+
