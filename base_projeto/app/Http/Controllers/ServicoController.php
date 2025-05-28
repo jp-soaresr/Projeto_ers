@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Servico;
+use App\Models\Cliente;
+use App\Models\FormaPagamento;
 use Illuminate\Http\Request;
 
 class ServicoController extends Controller
@@ -11,12 +14,7 @@ class ServicoController extends Controller
      */
     public function index()
     {
-        $servicos = [
-            (object) ['id' => 1, 'nome' => 'Serviço A', 'descricao' => 'Descrição do Serviço A', 'preco' => '100.00'],
-            (object) ['id' => 2, 'nome' => 'Serviço B', 'descricao' => 'Descrição do Serviço B', 'preco' => '200.00'],
-            (object) ['id' => 3, 'nome' => 'Serviço C', 'descricao' => 'Descrição do Serviço C', 'preco' => '300.00'],
-        ];
-
+        $servicos = Servico::with(['cliente', 'forma_pagamento'])->get();
         return view('servico.listar', compact('servicos'));
     }
 
@@ -25,7 +23,9 @@ class ServicoController extends Controller
      */
     public function create()
     {
-        //
+        $clientes = Cliente::all();
+        $formas_pagamento = FormaPagamento::all();
+        return view('servico.criar', compact('clientes', 'formas_pagamento'));
     }
 
     /**
@@ -33,7 +33,18 @@ class ServicoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'valor' => 'required|numeric',
+            'data_inicio' => 'required|date',
+            'data_fim' => 'required|date',
+            'id_cliente' => 'required|exists:clientes,id',
+            'id_forma_pagamento' => 'required|exists:forma_pagamentos,id',
+        ]);
+
+        Servico::create($request->all());
+
+        return redirect()->route('servicos.index')->with('success', 'Serviço criado com sucesso!');
     }
 
     /**

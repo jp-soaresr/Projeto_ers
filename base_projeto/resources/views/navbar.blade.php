@@ -112,6 +112,8 @@
       <a class="nav-link" href="forma_pagamentos">Forma de pagamento</a>
       <div class="divider"></div>
       <a class="nav-link" href="usuarios">Usuários</a>
+      <div class="divider"></div>
+      <a class="nav-link" href="servicos">Serviço</a>
     </nav>
   </header>
 
