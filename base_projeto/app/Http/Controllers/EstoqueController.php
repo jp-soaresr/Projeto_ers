@@ -13,7 +13,7 @@ class EstoqueController extends Controller
     public function index()
     {
         //$produtos = Produto::with(['categoria', 'formaPagamento'])->where('user_id', Auth::user()->id)->get();
-        $produtos = Produto::with(['categoria', 'formaPagamento'])->get();
+        $produtos = Produto::with(['categoria'])->get();
         $categorias = Categoria::all();
         return view('estoque.listar', compact('produtos', 'categorias'));
     }

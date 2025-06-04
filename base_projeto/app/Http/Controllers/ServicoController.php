@@ -14,7 +14,7 @@ class ServicoController extends Controller
      */
     public function index()
     {
-        $servicos = Servico::with(['cliente', 'forma_pagamento'])->get();
+        $servicos = Servico::with(['cliente'])->get();
         return view('servico.listar', compact('servicos'));
     }
 

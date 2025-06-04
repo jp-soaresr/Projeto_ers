@@ -10,9 +10,10 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ControllerRecuperarSenha;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\VeiculoController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 
 /*
@@ -50,21 +51,26 @@ Route::resource('forma_pagamentos', FormaPagamentoController::class);
 
 Route::resource('usuarios', UsuarioController::class);
 
+Route::resource('veiculo', VeiculoController::class);
+
 Route::resource('servicos', ServicoController::class);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 
-
-
 // Rota para solicitar recuperação de senha
-Route::get('/senha/recuperar', [ControllerRecuperarSenha::class, 'showSolicitacaoForm'])->name('senha.solicitar');
-Route::post('/senha/recuperar', [ControllerRecuperarSenha::class, 'enviarLinkRecuperacao'])->name('senha.enviar');
+Route::get('/senha/recuperar', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('senha.solicitar');
+Route::post('/senha/recuperar', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('senha.enviar');
 
 // Rota para redefinir senha
-Route::get('/senha/redefinir/{token}', [ControllerRecuperarSenha::class, 'showRedefinirForm'])->name('senha.redefinir');
-Route::post('/senha/redefinir', [ControllerRecuperarSenha::class, 'redefinirSenha'])->name('senha.atualizar');
+Route::get('/senha/redefinir/{token}', [ResetPasswordController::class, 'showResetForm'])->name('senha.redefinir');
+Route::post('/senha/redefinir', [ResetPasswordController::class, 'reset'])->name('senha.atualizar');
 
-Route::resource('veiculo', VeiculoController::class);
+// Password Reset Routes
+Route::get('password/reset', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('password.update');
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

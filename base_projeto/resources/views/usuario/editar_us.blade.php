@@ -29,7 +29,9 @@
                     <div class="mb-2">
                         <label>Nível:</label>
                         <select name="nivel" id="editarNivelUsuario" class="form-control" required>
-                            <option value="admin">Admin</option>
+                            <<option value="admin">Admin</option>
+                            <option value="gestor">Gestor</option>
+                            <option value="vendedor">Vendedor</option>
                         </select>
                     </div>
                 </div>

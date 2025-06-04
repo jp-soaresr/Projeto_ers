@@ -19,7 +19,7 @@ class UsuarioSeeder extends Seeder
             'email' => 'adm@adm.com',
             'senha' => bcrypt('adm'),
             'telefone' => '99999999',
-            'nivel' => 'admin',
+            'nivel' => 'Admin',
         ]);
 
         // Primeiro novo usuário
@@ -28,7 +28,7 @@ class UsuarioSeeder extends Seeder
             'email' => 'soaresr0105@gmail.com',
             'senha' => bcrypt('12345'),
             'telefone' => '18 997394127',
-            'nivel' => 'gestor',
+            'nivel' => 'Gestor',
         ]);
 
         // Segundo novo usuário
@@ -37,7 +37,7 @@ class UsuarioSeeder extends Seeder
             'email' => 'livialandim04@gmail.com',
             'senha' => bcrypt('panela'),
             'telefone' => '18 997208929',
-            'nivel' => 'gestor',
+            'nivel' => 'Gestor',
         ]);
     }
 }
