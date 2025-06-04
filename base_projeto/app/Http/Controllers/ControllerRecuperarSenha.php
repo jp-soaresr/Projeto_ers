@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\RecuperarSenhaMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -75,32 +76,29 @@ class ControllerRecuperarSenha extends Controller
     public function enviarLinkRecuperacao(Request $request)
     {
         $request->validate(['email' => 'required|email']);
-        // Aqui você pode usar a tabela password_reset_tokens do Laravel
-        // ou criar sua própria lógica para gerar e salvar o token
-        // Exemplo básico:
-        // 1. Verifica se o e-mail existe
         $usuario = \App\Models\Usuario::where('email', $request->email)->first();
         if (!$usuario) {
-            return back()->withErrors(['email' => 'E-mail não encontrado.']);
+            return back()->withErrors(['email' => 'E-mail não encontrado no sistema.'])->withInput();
         }
-        // 2. Gera token e salva (aqui pode usar DB::table('password_reset_tokens')->insert(...))
-        $token = \Str::random(60);
-        \DB::table('password_reset_tokens')->updateOrInsert(
-            ['email' => $request->email],
-            [
-                'token' => $token,
-                'created_at' => now()
-            ]
-        );
-        // 3. Envia e-mail (aqui só um placeholder)
-        // Mail::to($request->email)->send(new RecuperarSenhaMail($token));
+        // Gera um token seguro
+        $token = Str::random(64);
+        // Remove tokens antigos para este e-mail
+        DB::table('password_reset_tokens')->where('email', $usuario->email)->delete();
+        // Salva o novo token
+        DB::table('password_reset_tokens')->insert([
+            'email' => $usuario->email,
+            'token' => Hash::make($token),
+            'created_at' => now(),
+        ]);
+        // Envia o e-mail de recuperação com o token
+        $usuario->notify(new RecuperarSenhaMail($token, $usuario->email));
         return back()->with('status', 'Enviamos um link de recuperação para seu e-mail!');
     }
 
     // Exibe o formulário de redefinição de senha
-    public function showRedefinirForm($token)
+    public function showRedefinirForm($token = null)
     {
-        return view('auth.redefinir_senha', compact('token'));
+        return view('auth.redefinir_senha', ['token' => $token]);
     }
 
     // Processa a redefinição de senha
@@ -109,25 +107,22 @@ class ControllerRecuperarSenha extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required|confirmed|min:6',
-            'token' => 'required'
+            'token' => 'required',
         ]);
-        // Busca o token
-        $reset = \DB::table('password_reset_tokens')
+        $reset = DB::table('password_reset_tokens')
             ->where('email', $request->email)
-            ->where('token', $request->token)
             ->first();
-        if (!$reset) {
-            return back()->withErrors(['email' => 'Token inválido ou expirado.']);
+        if (!$reset || !Hash::check($request->token, $reset->token)) {
+            return back()->withErrors(['email' => 'Token de redefinição inválido ou expirado.']);
         }
-        // Atualiza a senha do usuário
         $usuario = \App\Models\Usuario::where('email', $request->email)->first();
         if (!$usuario) {
             return back()->withErrors(['email' => 'Usuário não encontrado.']);
         }
-        $usuario->senha = \Hash::make($request->password);
+        $usuario->senha = Hash::make($request->password);
         $usuario->save();
-        // Remove o token
-        \DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+        // Remove o token após uso
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
         return redirect()->route('login')->with('success', 'Senha redefinida com sucesso!');
     }
 }
