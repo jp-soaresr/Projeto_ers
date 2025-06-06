@@ -44,7 +44,7 @@
                 @if ($errors->any())
                     <div class="alert alert-danger">{{ $errors->first() }}</div>
                 @endif
-                <form method="POST" action="{{ route('senha.atualizar') }}">
+                <form method="POST" action="{{ route('password.update') }}">
                     @csrf
                     <input type="hidden" name="token" value="{{ $token }}">
                     <div class="mb-3">

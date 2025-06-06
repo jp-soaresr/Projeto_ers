@@ -59,7 +59,7 @@
                     <button type="submit" class="btn btn-primary w-100">Entrar</button>
                 </form>
                 <div class="d-flex justify-content-center mt-2">
-                    <a href="{{ route('senha.solicitar') }}" class="btn-recuperar">Esqueceu a senha?</a>
+                    <a href="{{ route('recuperar-senha.create') }}" class="btn-recuperar">Esqueceu a senha?</a>
                 </div>
             </div>
         </div>
