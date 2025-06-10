@@ -14,7 +14,7 @@ class ServicoController extends Controller
      */
     public function index()
     {
-        $servicos = Servico::with(['cliente'])->get();
+        $servicos = Servico::with(['cliente', 'formaPagamento'])->get();
         return view('servico.listar', compact('servicos'));
     }
 
@@ -52,7 +52,8 @@ class ServicoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $servico = Servico::with(['cliente'])->findOrFail($id);
+        return view('servico.mostrar', compact('servico'));
     }
 
     /**
@@ -60,7 +61,10 @@ class ServicoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $servico = Servico::findOrFail($id);
+        $clientes = Cliente::all();
+        $formas_pagamento = FormaPagamento::all();
+        return view('servico.editar', compact('servico', 'clientes', 'formas_pagamento'));
     }
 
     /**
@@ -68,7 +72,19 @@ class ServicoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'valor' => 'required|numeric',
+            'data_inicio' => 'required|date',
+            'data_fim' => 'required|date',
+            'id_cliente' => 'required|exists:clientes,id',
+            'id_forma_pagamento' => 'required|exists:forma_pagamentos,id',
+        ]);
+
+        $servico = Servico::findOrFail($id);
+        $servico->update($request->all());
+
+        return redirect()->route('servicos.index')->with('success', 'Serviço atualizado com sucesso!');
     }
 
     /**
@@ -76,6 +92,8 @@ class ServicoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $servico = Servico::findOrFail($id);
+        $servico->delete();
+        return redirect()->route('servicos.index')->with('success', 'Serviço excluído com sucesso!');
     }
 }
