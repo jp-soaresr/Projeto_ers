@@ -20,5 +20,19 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(UsuarioSeeder::class);
+
+        $this->call(FormaPagamentoSeeder::class);
+
+        $this->call(CategoriaSeeder::class);
+
+        $this->call(ClienteSeeder::class);
+        
+        $this->call(VeiculoSeeder::class);        
+        
+        $this->call(ProdutoSeeder::class);
+
+        $this->call(ServicoSeeder::class);
+
+        $this->call(ProdutoServicoSeeder::class);
     }
 }
