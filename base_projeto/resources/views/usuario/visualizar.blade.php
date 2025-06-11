@@ -1,63 +1,172 @@
 @extends('layout')
 
 @section('conteudo')
+
+{{-- Lembre-se de ter os links para a fonte e ícones no seu layout principal --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+<style>
+    /* O mesmo CSS que usamos para as telas anteriores.
+       Idealmente, ele deve estar no seu arquivo CSS principal.
+    */
+    :root {
+        --cor-primaria: #4338ca;
+        --cor-sucesso: #16a34a;
+        --cor-perigo: #dc2626;
+        --cor-fundo: #f3f4f6;
+        --cor-card: #ffffff;
+        --cor-texto-titulo: #111827;
+        --cor-texto-corpo: #374151;
+        --cor-texto-suave: #6b7280;
+        --cor-borda: #e5e7eb;
+        --cor-fundo-hover: #f9fafb;
+        --sombra-suave: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+        --raio-borda: 12px;
+    }
+
+    body {
+        background-color: var(--cor-fundo);
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Cabeçalho padronizado */
+    .header-acoes {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+    }
+     .header-acoes h2 {
+        color: var(--cor-texto-titulo);
+        font-weight: 700;
+        margin: 0;
+    }
+
+    /* Estilo da Tabela Moderna */
+    .table-moderna-wrapper {
+        background-color: var(--cor-card);
+        border-radius: var(--raio-borda);
+        padding: 0.5rem 1rem;
+        box-shadow: var(--sombra-suave);
+        border: 1px solid var(--cor-borda);
+    }
+    .table-moderna {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    .table-moderna thead th {
+        color: var(--cor-texto-suave);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: none;
+        border-bottom: 2px solid var(--cor-borda);
+        padding: 1rem 1.5rem !important;
+        text-align: left;
+    }
+    .table-moderna thead th.text-center {
+        text-align: center;
+    }
+
+    .table-moderna tbody tr {
+        transition: background-color 0.2s ease;
+    }
+    .table-moderna tbody tr:hover {
+        background-color: var(--cor-fundo-hover);
+    }
+    .table-moderna td {
+        border: none;
+        padding: 1.25rem 1.5rem !important;
+        vertical-align: middle;
+        font-weight: 500;
+        border-bottom: 1px solid var(--cor-borda);
+    }
+    .table-moderna tbody tr:last-child td {
+        border-bottom: none;
+    }
+    /* Adicionando as divisórias verticais sutis */
+    .table-moderna td:not(:first-child),
+    .table-moderna th:not(:first-child) {
+        border-left: 1px solid var(--cor-borda);
+    }
+
+    /* Botões de Ação da Tabela */
+    .btn-acao-tabela {
+        background: none; border: none; color: var(--cor-texto-suave);
+        font-size: 1rem; padding: 0.5rem; border-radius: 8px;
+        width: 36px; height: 36px;
+        transition: all 0.2s;
+    }
+    .btn-acao-tabela.editar:hover { background-color: #dbeafe; color: #4338ca; }
+    .btn-acao-tabela.excluir:hover { background-color: #fee2e2; color: #dc2626; }
+
+</style>
+
 <div class="container mt-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <div class="header-acoes mb-3">
         <h2>Usuários</h2>
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#novoUsuarioModal">
-            Novo Usuário
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoUsuarioModal">
+            <i class="fas fa-plus me-1"></i> Novo Usuário
         </button>
     </div>
 
     @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
+        <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <table class="table table-bordered table-hover">
-        <thead class="table-light">
-            <tr>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>Telefone</th>
-                <th>Nível</th>
-                <th class="text-center" style="width: 160px;">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($usuarios as $usuario)
+    <div class="table-moderna-wrapper">
+        <table class="table table-moderna">
+            <thead>
                 <tr>
-                    <td>{{ $usuario->nome }}</td>
-                    <td>{{ $usuario->email }}</td>
-                    <td>{{ $usuario->telefone }}</td>
-                    <td>{{ $usuario->nivel }}</td>
-
-                    <td class="text-center">
-                        <button class="btn btn-primary btn-sm btn-editar-usuario"
-                            data-id="{{ $usuario->id }}"
-                            data-nome="{{ $usuario->nome }}"
-                            data-email="{{ $usuario->email }}"
-                            data-telefone="{{ $usuario->telefone }}"
-                            data-nivel="{{ $usuario->nivel }}">
-                            Editar
-                        </button>
-                        <button class="btn btn-danger btn-sm btn-excluir-usuario"
-                            data-id="{{ $usuario->id }}">
-                            Excluir
-                        </button>
-                    </td>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th>Nível</th>
+                    <th class="text-center" style="width: 140px;">Ações</th>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="5" class="text-center">Nenhum usuário cadastrado.</td>
-                </tr>
-            @endforelse
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @forelse ($usuarios as $usuario)
+                    <tr>
+                        <td>{{ $usuario->nome }}</td>
+                        <td>{{ $usuario->email }}</td>
+                        <td>{{ $usuario->telefone }}</td>
+                        <td>{{ $usuario->nivel }}</td>
+                        <td class="text-center">
+                            <button class="btn-acao-tabela editar btn-editar-usuario"
+                                title="Editar Usuário"
+                                data-id="{{ $usuario->id }}"
+                                data-nome="{{ $usuario->nome }}"
+                                data-email="{{ $usuario->email }}"
+                                data-telefone="{{ $usuario->telefone }}"
+                                data-nivel="{{ $usuario->nivel }}">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                            <button class="btn-acao-tabela excluir btn-excluir-usuario"
+                                title="Excluir Usuário"
+                                data-id="{{ $usuario->id }}">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="5" class="text-center" style="padding: 2rem !important; border-bottom: none;">Nenhum usuário cadastrado.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 </div>
 
+{{-- SEU SCRIPT ORIGINAL MANTIDO 100% INTACTO E FUNCIONAL --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     // Botões de edição

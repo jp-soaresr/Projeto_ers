@@ -1,186 +1,245 @@
 @extends('layout')
 
 @section('conteudo')
-<div class="container mt-4">
 
-  <div class="row g-4">
-    <div class="col-md-4">
-      <div class="card bg-central card-link" onclick="window.location.href='categorias'" style="cursor:pointer;">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
-          <h5 class="card-title">Categorias</h5>
-          <p class="card-text">Gerencie as categorias dos seus produtos.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-aux1 card-link" onclick="window.location.href='estoque'" style="cursor:pointer;">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
-          <h5 class="card-title">Estoque</h5>
-          <p class="card-text">Visualize e atualize o controle de estoque.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-aux2 card-link" onclick="window.location.href='clientes'" style="cursor:pointer;">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
-          <h5 class="card-title">Clientes</h5>
-          <p class="card-text">Gerencie os dados e contatos dos seus clientes.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-aux3 card-link" onclick="window.location.href='forma_pagamentos'" style="cursor:pointer;">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
-          <h5 class="card-title">Forma de pagamento</h5>
-          <p class="card-text">Configure os métodos aceitos no sistema.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-aux4 card-link" onclick="window.location.href='usuarios'" style="cursor:pointer;">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
-          <h5 class="card-title">Usuários</h5>
-          <p class="card-text">Controle os usuários e suas permissões.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-aux5 card-link" onclick="window.location.href='servicos'" style="cursor:pointer;">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
-          <h5 class="card-title">Serviços</h5>
-          <p class="card-text">Gerencie os serviços oferecidos.</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-aux6 card-link" onclick="window.location.href='veiculo'" style="cursor:pointer;">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center h-100">
-          <h5 class="card-title">Veículos</h5>
-          <p class="card-text">Gerencie os dados e informações dos veículos.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+{{-- Links para fonte e ícones --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-  .user-profile {
-    width: 40px;
-    height: 40px;
-    background-color: #007bff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  .user-profile:hover {
-    background-color: #0056b3;
-    transform: scale(1.1);
-  }
-  .user-menu-container {
-    position: relative;
-    display: inline-block;
-  }
-  .user-menu {
-    display: none;
-    position: absolute;
-    top: 50px;
-    left: 0;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    min-width: 120px;
-  }
-  .user-menu button {
-    width: 100%;
-    padding: 10px 15px;
-    border: none;
-    background: none;
-    text-align: left;
-    color: #dc3545;
-  }
-  .user-menu button:hover {
-    background-color: #f8f9fa;
-  }
-  .card-link {
-    min-height: 200px;
-    height: 240px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    border-radius: 18px;
-    box-shadow: 0 4px 16px rgba(105, 39, 100, 0.08);
-    font-size: 1.1rem;
-    transition: transform 0.3s, box-shadow 0.3s;
-    text-align: center;
-  }
-  .card-link:hover {
-    transform: scale(1.06);
-    box-shadow: 0 8px 24px rgba(105, 39, 100, 0.18);
-  }
-  .bg-central {
-    background: linear-gradient(135deg, #692764 60%, #a23e8d 100%) !important;
-    color: #fff !important;
-  }
-  .bg-aux1 {
-    background: linear-gradient(135deg, #a23e8d 60%, #e85d75 100%) !important;
-    color: #fff !important;
-  }
-  .bg-aux2 {
-    background: linear-gradient(135deg, #e85d75 60%,rgb(243, 30, 30) 100%) !important;
-    color: #fff !important;
-  }
-  .bg-aux3 {
-    background: linear-gradient(135deg,rgb(4, 122, 85) 60%, #3ab795 100%) !important;
-    color: #fff !important;
-  }
-  .bg-aux4 {
-    background: linear-gradient(135deg, #3ab795 60%, #2d82b7 100%) !important;
-    color: #fff !important;
-  }
-  .bg-aux5 {
-    background: linear-gradient(135deg, #2d82b7 60%,rgb(39, 58, 105) 100%) !important;
-    color: #fff !important;
-  }
-  .bg-aux6 {
-    background: linear-gradient(135deg,rgb(197, 58, 15) 60%,rgb(223, 149, 53) 100%) !important;
-    color: #fff !important;
-  }
-  .card-title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 0.7rem;
-    text-align: center;
-  }
-  .card-text {
-    font-size: 1.15rem;
-    text-align: center;
-  }
+    :root {
+        --cor-primaria: #4338ca;
+        --cor-sucesso: #16a34a;
+        --cor-perigo: #dc2626;
+        --cor-alerta: #f59e0b;
+        --cor-fundo: #f3f4f6;
+        --cor-card: #ffffff;
+        --cor-texto-titulo: #111827;
+        --cor-texto-corpo: #374151;
+        --cor-texto-suave: #6b7280;
+        --cor-borda: #e5e7eb;
+        --sombra-suave: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+        --raio-borda: 16px;
+    }
+    body {
+        background-color: var(--cor-fundo);
+        font-family: 'Inter', sans-serif;
+    }
+
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+    .kpi-card {
+        background-color: var(--cor-card);
+        border-radius: var(--raio-borda);
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        border: 1px solid var(--cor-borda);
+        box-shadow: var(--sombra-suave);
+    }
+    .kpi-card .icon {
+        font-size: 1.75rem;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .icon-usuarios { background-color: #dbeafe; color: #1e40af; }
+    .icon-clientes { background-color: #dcfce7; color: #166534; }
+    .icon-servicos { background-color: #fef3c7; color: #92400e; }
+    .icon-produtos { background-color: #fee2e2; color: #991b1b; }
+    
+    .kpi-card .info .value {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: var(--cor-texto-titulo);
+        line-height: 1;
+    }
+    .kpi-card .info .label {
+        font-size: 0.9rem;
+        color: var(--cor-texto-suave);
+    }
+    
+    .charts-grid {
+        margin-top: 2.5rem;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 1.5rem;
+    }
+    .chart-card {
+        background-color: var(--cor-card);
+        border-radius: var(--raio-borda);
+        padding: 1.5rem;
+        border: 1px solid var(--cor-borda);
+        box-shadow: var(--sombra-suave);
+        display: flex; /* Adicionado para controle do container interno */
+        flex-direction: column; /* Adicionado */
+    }
+    .chart-card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        flex-shrink: 0; /* Impede que o título encolha */
+    }
+
+    /* ======================================================= */
+    /* AJUSTE: Container para quebrar o loop de renderização   */
+    /* ======================================================= */
+    .chart-container {
+        position: relative;
+        flex-grow: 1; /* Faz o container crescer e ocupar o espaço */
+        min-height: 350px; /* Define uma altura mínima para o gráfico */
+    }
+
+
+    /* Responsividade para os gráficos */
+    @media (max-width: 992px) {
+        .charts-grid {
+            grid-template-columns: 1fr; 
+        }
+    }
 </style>
 
-<script>
-  const userCircle = document.getElementById('userCircle');
-  const menuBox = document.getElementById('menuBox');
-  let hideTimeout;
-  function showMenu() {
-    clearTimeout(hideTimeout);
-    menuBox.style.display = 'block';
-  }
-  function hideMenu() {
-    hideTimeout = setTimeout(() => {
-      menuBox.style.display = 'none';
-    }, 1000);
-  }
-  userCircle.addEventListener('mouseenter', showMenu);
-  userCircle.addEventListener('mouseleave', hideMenu);
-  menuBox.addEventListener('mouseenter', showMenu);
-  menuBox.addEventListener('mouseleave', hideMenu);
-</script>
+<div class="container mt-4">
+    <h1 class="mb-5">Dashboard</h1>
+
+    {{-- GRID DOS CARDS DE NÚMEROS (KPIs) --}}
+    <div class="kpi-grid">
+        {{-- Seus cards de KPI aqui... --}}
+        <div class="kpi-card">
+            <div class="icon icon-usuarios"><i class="fas fa-users"></i></div>
+            <div class="info">
+                <div class="value">{{ $totalUsuarios }}</div>
+                <div class="label">Usuários</div>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="icon icon-clientes"><i class="fas fa-handshake"></i></div>
+            <div class="info">
+                <div class="value">{{ $totalClientes }}</div>
+                <div class="label">Clientes</div>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="icon icon-servicos"><i class="fas fa-wrench"></i></div>
+            <div class="info">
+                <div class="value">{{ $totalServicos }}</div>
+                <div class="label">Serviços Prestados</div>
+            </div>
+        </div>
+        <div class="kpi-card">
+            <div class="icon icon-produtos"><i class="fas fa-box"></i></div>
+            <div class="info">
+                <div class="value">{{ $totalProdutosEmEstoque }}</div>
+                <div class="label">Produtos em Estoque</div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Links e Style block (sem alterações) --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+{{-- ... (resto dos seus links e style block) ... --}}
+<style>
+    :root {
+        --cor-primaria: #4338ca;
+        /* etc... */
+    }
+</style>
+
+<div class="container mt-4">
+
+    {{-- GRID DOS CARDS DE NÚMEROS (KPIs) - Sem alterações --}}
+    <div class="kpi-grid">
+        {{-- ... Seus 4 cards de KPI ... --}}
+    </div>
+
+    {{-- GRID DOS GRÁFICOS --}}
+    <div class="charts-grid">
+        <div class="chart-card">
+            {{-- MUDANÇA 1: Título do gráfico atualizado --}}
+            <h3>Formas de Pagamento Mais Usadas</h3>
+            <div class="chart-container">
+                {{-- O ID do canvas foi renomeado para maior clareza --}}
+                <canvas id="graficoPagamentos"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <h3>Serviços por Mês</h3>
+            <div class="chart-container">
+                <canvas id="graficoServicos"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
+
+@push('scripts')
+{{-- Adicionando a biblioteca Chart.js --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // --- GRÁFICO 1: FORMAS DE PAGAMENTO (GRÁFICO DE ROSCA/DONUT) ---
+    // MUDANÇA 2: O ID do canvas foi atualizado aqui
+    const pagamentosCtx = document.getElementById('graficoPagamentos');
+    if (pagamentosCtx) {
+        new Chart(pagamentosCtx, {
+            type: 'doughnut',
+            data: {
+                // MUDANÇA 3: Usando as novas variáveis do Controller
+                labels: @json($pagamentoLabels),
+                datasets: [{
+                    label: 'Nº de Vezes Usada',
+                    data: @json($pagamentoData),
+                    backgroundColor: ['#4f46e5', '#16a34a', '#f59e0b', '#dc2626', '#6b7280'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false, 
+                plugins: {
+                    legend: { position: 'top' }
+                }
+            }
+        });
+    }
+
+
+    // --- GRÁFICO 2: SERVIÇOS POR MÊS (GRÁFICO DE BARRAS) - Nenhuma mudança necessária aqui --
+    const servicosCtx = document.getElementById('graficoServicos');
+    if (servicosCtx) {
+        new Chart(servicosCtx, {
+            type: 'bar',
+            data: {
+                labels: @json($mesesLabels),
+                datasets: [{
+                    label: 'Total de Serviços',
+                    data: @json($servicosPorMesData),
+                    backgroundColor: 'rgba(79, 70, 229, 0.8)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 1,
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false, 
+                scales: { y: { beginAtZero: true, ticks: { precision: 0 } } },
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+});
+</script>
+@endpush

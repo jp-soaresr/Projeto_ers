@@ -1,193 +1,219 @@
 @extends('layout')
 
 @section('conteudo')
+
+{{-- Lembre-se de ter os links para a fonte e ícones no seu layout principal --}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
 <style>
+    /* O CSS do nosso "Mini Sistema de Design" */
     :root {
-        --verde-principal: #79b7b4;
-        --azul-editar: #007bff;
-        --vermelho-excluir: #dc3545;
-        --cinza-claro: #f5f5f5;
-        --bg-listrado: #e0f0ef;
+        --cor-primaria: #4338ca;
+        --cor-sucesso: #16a34a;
+        --cor-perigo: #dc2626;
+        --cor-fundo: #f3f4f6;
+        --cor-card: #ffffff;
+        --cor-texto-titulo: #111827;
+        --cor-texto-corpo: #374151;
+        --cor-texto-suave: #6b7280;
+        --cor-borda: #e5e7eb;
+        --sombra-suave: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
+        --raio-borda: 16px;
     }
 
     body {
-        background-color: var(--cinza-claro);
+        background-color: var(--cor-fundo);
+        font-family: 'Inter', sans-serif;
     }
 
-    h1 {
-        color: var(--verde-principal);
+    /* Cabeçalho padronizado */
+    .header-acoes {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
     }
-
-    .btn-novo {
-        background-color: rgb(60, 193, 120);
-        border-color: rgb(60, 193, 120);
-        color: white;
-    }
-
-    .btn-novo:hover {
-        background-color: rgb(34, 119, 72);
-        border-color: rgb(34, 119, 72);
-    }
-
-    .btn-editar {
-        background-color: var(--azul-editar);
-        border-color: var(--azul-editar);
-        color: white;
-        padding: 6px 16px;
-        font-size: 0.95rem;
-    }
-
-    .btn-editar:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
-
-    .btn-excluir {
-        background-color: var(--vermelho-excluir);
-        border-color: var(--vermelho-excluir);
-        color: white;
-        padding: 6px 16px;
-        font-size: 0.95rem;
-    }
-
-    .btn-excluir:hover {
-        background-color: #a71d2a;
-        border-color: #a71d2a;
-    }
-
-    .btn-relatorio {
-        background-color: #6c63ff;
-        border-color: #6c63ff;
-        color: white;
-        padding: 6px 16px;
-        font-size: 0.95rem;
-        transition: background 0.2s, border 0.2s;
-    }
-
-    .btn-relatorio:hover {
-        background-color: #4b47b7;
-        border-color: #4b47b7;
-    }
-
-    .table {
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
-        border-radius: 12px;
-        overflow: hidden;
-    }
-
-    thead tr {
-        font-size: 1.08rem;
-        letter-spacing: 0.5px;
-    }
-
-    tbody tr {
-        vertical-align: middle;
-        font-size: 1.01rem;
-    }
-
-    .table-responsive {
-        border-radius: 12px;
-        background: #fff;
-        padding: 18px 12px 8px 12px;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-    }
-
-    .btn i {
-        margin-right: 5px;
-    }
-
-    .btn {
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-        border-radius: 6px;
-    }
-
-    .mb-4 h1 {
+     .header-acoes h2 {
+        color: var(--cor-texto-titulo);
         font-weight: 700;
-        letter-spacing: 1px;
-        text-shadow: 0 2px 8px rgba(121, 183, 180, 0.08);
+        margin: 0;
     }
 
-    @media (max-width: 600px) {
-        .table-responsive {
-            padding: 6px 2px 2px 2px;
-        }
+    /* --- Novo Layout de Lista de Produtos --- */
+    .lista-produtos {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem; /* Espaço entre os cards */
+    }
 
-        .mb-3.d-flex {
-            flex-direction: column !important;
-            align-items: stretch !important;
-        }
+    .produto-card-linha {
+        background-color: var(--cor-card);
+        border-radius: var(--raio-borda);
+        border: 1px solid var(--cor-borda);
+        box-shadow: var(--sombra-suave);
+        padding: 1rem 1.5rem;
+        display: grid; /* Usando grid para alinhar as colunas */
+        grid-template-columns: 2.5fr 1fr 1fr 1fr 1.5fr; /* Proporções das colunas */
+        align-items: center;
+        gap: 1rem;
+        transition: all 0.2s ease-in-out;
+    }
+    .produto-card-linha:hover {
+        transform: translateY(-3px) scale(1.01);
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        border-color: var(--cor-primaria);
+    }
+    
+    .produto-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .produto-avatar {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        background-color: var(--cor-primaria-leve, #e0e7ff);
+        color: var(--cor-primaria);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
 
-        .btn {
-            width: 100%;
-            margin-bottom: 6px;
+    .produto-nome {
+        font-weight: 600;
+        color: var(--cor-texto-titulo);
+    }
+    .produto-categoria-label {
+        font-size: 0.8rem;
+        color: var(--cor-texto-suave);
+    }
+
+    .produto-dado {
+        font-weight: 500;
+        color: var(--cor-texto-corpo);
+    }
+
+    .produto-acoes {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+
+    .btn-acao-card {
+        background: none; border: 1px solid var(--cor-borda); color: var(--cor-texto-suave);
+        font-size: 0.9rem; padding: 0.5rem; border-radius: 8px;
+        width: 38px; height: 38px; line-height: 1;
+        transition: all 0.2s;
+    }
+    .btn-acao-card.editar:hover { border-color: #4338ca; background-color: #e0e7ff; color: #4338ca; }
+    .btn-acao-card.excluir:hover { border-color: #dc2626; background-color: #fee2e2; color: #dc2626; }
+
+    /* Responsividade */
+    @media (max-width: 992px) {
+        .produto-card-linha {
+            grid-template-columns: 1fr; /* Empilha tudo em telas menores */
+            padding: 1.5rem;
+        }
+        .produto-acoes {
+            justify-content: flex-start;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--cor-borda);
         }
     }
+
 </style>
 
-<div class="mb-4">
-    <h1 class="text-center">Produtos</h1>
-</div>
+<div class="container mt-4">
 
-<div class="mb-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
-    <div>
-        <button class="btn btn-novo me-2 mb-2" data-bs-toggle="modal" data-bs-target="#novoProdutoModal">
-            <i class="fas fa-plus"></i> Novo Produto
-        </button>
-
-        <a href="{{ route('estoque.relatorio') }}" class="btn btn-relatorio mb-2">
-            <i class="fas fa-file-alt"></i> Gerar Relatório
-        </a>
+    <div class="header-acoes mb-4">
+        <h2>Produtos</h2>
+        <div>
+            <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#novoProdutoModal">
+                <i class="fas fa-plus me-1"></i> Novo Produto
+            </button>
+            <a href="{{ route('estoque.relatorio') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-file-alt me-1"></i> Gerar Relatório
+            </a>
+        </div>
     </div>
-</div>
+    
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-<div class="table-responsive">
-    <table class="table table-striped table-bordered shadow-sm rounded">
-        <thead style="background-color: var(--verde-principal); color: white;">
-            <tr>
-                <th>ID</th>
-                <th>Nome do Item</th>
-                <th>Quantidade</th>
-                <th>Valor</th>
-                <th>Categoria</th>
-                <th class="text-center">Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($produtos as $produto)
-            <tr>
-                <td>{{ $produto->id }}</td>
-                <td>{{ $produto->produto }}</td>
-                <td>{{ $produto->estoque }}</td>
-                <td>R$ {{ number_format($produto->valor, 2, ',', '.') }}</td>
-                <td>{{ $produto->categoria->categoria ?? '—' }}</td>
-                <td class="text-center">
-                    <div class="d-flex justify-content-center gap-2">
-                        <button
-                            class="btn btn-editar"
-                            data-id="{{ $produto->id }}"
-                            data-nome="{{ $produto->produto }}"
-                            data-estoque="{{ $produto->estoque }}"
-                            data-valor="{{ $produto->valor }}"
-                            data-categoria="{{ $produto->categoria->categoria ?? '' }}">
-                            <i class="fas fa-edit"></i> Editar
-                        </button>
-                        <button
-                            class="btn btn-excluir"
-                            data-id="{{ $produto->id }}">
-                            <i class="fas fa-trash-alt"></i> Excluir
-                        </button>
+    {{-- A nova lista de produtos começa aqui --}}
+    <div class="lista-produtos">
+        @forelse ($produtos as $produto)
+            <div class="produto-card-linha">
+                
+                {{-- Coluna 1: Nome e Categoria --}}
+                <div class="produto-info">
+                    <div class="produto-avatar">
+                        <i class="fas fa-box"></i>
                     </div>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="7" class="text-center">Nenhum produto cadastrado.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
+                    <div>
+                        <div class="produto-nome">{{ $produto->produto }}</div>
+                        <div class="produto-categoria-label">{{ $produto->categoria->categoria ?? 'Sem Categoria' }}</div>
+                    </div>
+                </div>
+
+                {{-- Coluna 2: Quantidade --}}
+                <div class="produto-dado">
+                    <strong>{{ $produto->estoque }}</strong> Un.
+                </div>
+
+                {{-- Coluna 3: Valor --}}
+                <div class="produto-dado">
+                    R$ {{ number_format($produto->valor, 2, ',', '.') }}
+                </div>
+
+                {{-- Coluna 4: Categoria (repetido, pode ser ID ou outra info) --}}
+                <div class="produto-dado text-muted">
+                    ID: {{ $produto->id }}
+                </div>
+
+                {{-- Coluna 5: Ações --}}
+                <div class="produto-acoes">
+                    <button
+                        class="btn-acao-card editar btn-editar"
+                        title="Editar Produto"
+                        data-id="{{ $produto->id }}"
+                        data-nome="{{ $produto->produto }}"
+                        data-estoque="{{ $produto->estoque }}"
+                        data-valor="{{ $produto->valor }}"
+                        data-categoria="{{ $produto->categoria_id ?? '' }}">
+                        <i class="fas fa-pencil-alt"></i>
+                    </button>
+                    <button
+                        class="btn-acao-card excluir btn-excluir"
+                        title="Excluir Produto"
+                        data-id="{{ $produto->id }}">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+
+            </div>
+        @empty
+            <div class="text-center p-5 bg-light rounded-3">
+                <p class="mb-0">Nenhum produto cadastrado.</p>
+            </div>
+        @endforelse
+    </div>
+
 </div>
 
+{{-- SEU SCRIPT ORIGINAL MANTIDO 100% INTACTO E FUNCIONAL --}}
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Editar
@@ -200,12 +226,12 @@
                 document.getElementById('editarNome').value = btn.dataset.nome;
                 document.getElementById('editarQuantidade').value = btn.dataset.estoque;
                 document.getElementById('editarValor').value = btn.dataset.valor;
+                // Assumindo que o ID do seu select de categoria é 'editarCategoria'
                 document.getElementById('editarCategoria').value = btn.dataset.categoria;
 
                 modal.show();
             });
         });
-
 
         // Excluir
         document.querySelectorAll('.btn-excluir').forEach(btn => {
