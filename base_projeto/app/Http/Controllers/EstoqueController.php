@@ -95,9 +95,7 @@ class EstoqueController extends Controller
     }
 
 
-    // ===================================================================
-    // MÉTODO NOVO PARA GERAR O RELATÓRIO EM PDF
-    // ===================================================================
+
     public function gerarPDF()
     {
         // 1. Busca todos os produtos do banco de dados, ordenados por nome

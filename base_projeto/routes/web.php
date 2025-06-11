@@ -15,6 +15,7 @@ use App\Http\Controllers\VeiculoController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -61,3 +62,12 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //gerando retalorio de estoque
 Route::get('/produtos/relatorio', [EstoqueController::class, 'gerarPDF'])->name('estoque.relatorio');
+
+
+
+// Rota para o Relatório Geral de todos os serviços
+Route::get('/relatorio', [ServicoController::class, 'gerarRelatorioGeralPDF'])->name('relatorio');
+// Rota para a Nota Fiscal de um serviço específico
+Route::get('/servicos/{id}/nota', [ServicoController::class, 'gerarNotaFiscalPDF'])->name('servicos.notaFiscal');
+
+

@@ -11,7 +11,7 @@
 
 <style>
     :root {
-        --cor-primaria: #4f46e5; 
+        --cor-primaria: #4f46e5;
         --cor-sucesso: #10b981;
         --cor-alerta: #f59e0b;
         --cor-perigo: #ef4444;
@@ -73,9 +73,11 @@
 
     .card-header-servico {
         display: flex;
-        align-items: center; /* Alinha o título e o status verticalmente */
-        gap: 1rem; /* Espaço entre o título e o status */
-        margin-bottom: 1.5rem; 
+        align-items: center;
+        /* Alinha o título e o status verticalmente */
+        gap: 1rem;
+        /* Espaço entre o título e o status */
+        margin-bottom: 1.5rem;
     }
 
     .card-titulo {
@@ -92,17 +94,31 @@
         border-radius: 999px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        flex-shrink: 0; /* Impede que o badge encolha */
+        flex-shrink: 0;
+        /* Impede que o badge encolha */
     }
-    .status-concluido { background-color: #dcfce7; color: #166534; }
-    .status-em_andamento { background-color: #dbeafe; color: #1e40af; }
-    .status-pendente { background-color: #fef3c7; color: #92400e; }
+
+    .status-concluido {
+        background-color: #dcfce7;
+        color: #166534;
+    }
+
+    .status-em_andamento {
+        background-color: #dbeafe;
+        color: #1e40af;
+    }
+
+    .status-pendente {
+        background-color: #fef3c7;
+        color: #92400e;
+    }
 
     /* LAYOUT AJUSTADO: Grid com 4 colunas para espaçamento igual */
     .info-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 1rem 1.5rem; /* Espaço vertical e horizontal */
+        gap: 1rem 1.5rem;
+        /* Espaço vertical e horizontal */
         margin-bottom: 1.5rem;
     }
 
@@ -142,6 +158,7 @@
     .valor-total-bloco .info-label {
         font-size: 0.9rem;
     }
+
     .valor-total-bloco .valor-total {
         font-size: 1.75rem;
         font-weight: 700;
@@ -157,7 +174,7 @@
         padding: 0 1rem;
         border-left: 1px solid var(--cor-borda);
     }
-    
+
     .btn-acao-lateral {
         background: none;
         border: none;
@@ -169,25 +186,36 @@
         height: 40px;
         transition: color 0.2s, background-color 0.2s;
     }
-    .btn-acao-lateral.editar:hover { background-color: #dbeafe; color: #1e40af; }
-    .btn-acao-lateral.excluir:hover { background-color: #fee2e2; color: #991b1b; }
+
+    .btn-acao-lateral.editar:hover {
+        background-color: #dbeafe;
+        color: #1e40af;
+    }
+
+    .btn-acao-lateral.excluir:hover {
+        background-color: #fee2e2;
+        color: #991b1b;
+    }
 
     /* Responsividade para telas menores */
     @media (max-width: 992px) {
         .info-grid {
-            grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas médias */
+            grid-template-columns: repeat(2, 1fr);
+            /* 2 colunas em telas médias */
         }
     }
+
     @media (max-width: 576px) {
         .info-grid {
-            grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+            grid-template-columns: 1fr;
+            /* 1 coluna em telas pequenas */
         }
+
         .card-header-servico {
             flex-direction: column;
             align-items: flex-start;
         }
     }
-
 </style>
 
 <div class="container mt-4">
@@ -198,21 +226,21 @@
             <a href="{{ route('servicos.create') }}" class="btn btn-primary">
                 <i class="fas fa-plus me-1"></i> Novo Serviço
             </a>
-            <a href="#" class="btn btn-outline-secondary">
+            <a href="{{ route('relatorio') }}" class="btn btn-outline-secondary" target="_blank">
                 <i class="fas fa-file-pdf me-1"></i> Relatório Geral
             </a>
         </div>
     </div>
-    
+
     <div class="row">
         @foreach($servicos as $servico)
         <div class="col-12 mb-4">
-            
+
             <div class="servico-card">
 
                 {{-- Conteúdo Principal (Esquerda) --}}
                 <div class="card-conteudo-principal">
-                    
+
                     <div class="card-header-servico">
                         <h2 class="card-titulo">{{ $servico->nome }}</h2>
                         <span class="status-badge status-{{ $servico->status ?? 'pendente' }}">{{ $servico->status ?? 'Pendente' }}</span>
@@ -234,28 +262,28 @@
                             </div>
                         </div>
                         <div class="info-bloco">
-                             <i class="fas fa-calendar-alt icon"></i>
+                            <i class="fas fa-calendar-alt icon"></i>
                             <div>
                                 <span class="info-label">Início</span>
                                 <p class="info-valor mb-0">{{ \Carbon\Carbon::parse($servico->data_inicio)->format('d/m/Y') }}</p>
                             </div>
                         </div>
                         <div class="info-bloco">
-                             <i class="fas fa-calendar-check icon"></i>
+                            <i class="fas fa-calendar-check icon"></i>
                             <div>
                                 <span class="info-label">Término</span>
                                 <p class="info-valor mb-0">{{ \Carbon\Carbon::parse($servico->data_fim)->format('d/m/Y') }}</p>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="card-footer-servico">
                         <div class="valor-total-bloco">
                             <span class="info-label">Valor Total</span>
                             <p class="valor-total mb-0">R$ {{ number_format($servico->valor, 2, ',', '.') }}</p>
                         </div>
-                        
-                        <a href="#" class="btn btn-dark">
+
+                        <a href="{{ route('servicos.notaFiscal', $servico->id) }}" class="btn btn-dark">
                             <i class="fas fa-receipt me-1"></i> Gerar Nota
                         </a>
                     </div>
@@ -266,7 +294,7 @@
                     <a href="{{ route('servicos.edit', $servico->id) }}" class="btn-acao-lateral editar" title="Editar Serviço">
                         <i class="fas fa-pencil-alt"></i>
                     </a>
-                    
+
                     <form action="{{ route('servicos.destroy', $servico->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')

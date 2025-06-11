@@ -6,6 +6,7 @@ use App\Models\Servico;
 use App\Models\Cliente;
 use App\Models\FormaPagamento;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ServicoController extends Controller
 {
@@ -95,5 +96,36 @@ class ServicoController extends Controller
         $servico = Servico::findOrFail($id);
         $servico->delete();
         return redirect()->route('servicos.index')->with('success', 'Serviço excluído com sucesso!');
+    }
+
+    // ===================================================================
+    // MÉTODO NOVO PARA O RELATÓRIO GERAL
+    // ===================================================================
+    public function gerarRelatorioGeralPDF()
+    {
+        // Busca todos os serviços com seus relacionamentos para otimizar a consulta
+        $servicos = Servico::with(['cliente', 'formaPagamento'])->orderBy('data_inicio', 'desc')->get();
+
+        // Carrega a view que criamos para o relatório geral
+        // Verifique se o nome do arquivo é 'relatorio-geral.blade.php' ou 'relatorio.blade.php'
+        $pdf = PDF::loadView('servico.relatorio', compact('servicos'));
+
+        // Retorna o PDF para o navegador
+        return $pdf->stream('relatorio-geral-de-servicos-' . date('d-m-Y') . '.pdf');
+    }
+
+    // ===================================================================
+    // MÉTODO NOVO PARA A NOTA FISCAL INDIVIDUAL
+    // ===================================================================
+    public function gerarNotaFiscalPDF($id)
+    {
+        // 1. Busca o serviço específico com seus relacionamentos
+        $servico = Servico::with(['cliente', 'formaPagamento'])->findOrFail($id);
+        
+        // 2. Carrega a view 'nota.blade.php' que criamos
+        $pdf = PDF::loadView('servico.nota', compact('servico'));
+
+        // 3. Gera o nome do arquivo e força o download
+        return $pdf->download('nota-servico-#' . $servico->id . '.pdf');
     }
 }
